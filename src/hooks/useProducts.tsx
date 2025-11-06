@@ -10,17 +10,13 @@ interface ProductHook {
   deleteProduct: (id: string) => Promise<void>;
   updateProductStock: (id: string, inStock: boolean) => Promise<void>;
   addProduct: (productData: NewProductData) => Promise<void>;
+  updateProduct: (id: string, updatedData: Partial<Product>) => Promise<void>; // 👈 agregado acá
 }
 
 export const useProducts = (): ProductHook => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const updateProduct = async (id: string, updatedData: Partial<Product>) => {
-  const productRef = doc(db, "products", id);
-  await updateDoc(productRef, updatedData);
-};
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -34,7 +30,7 @@ export const useProducts = (): ProductHook => {
             category: data.category || '',
             price: data.price || 0,
             inStock: data.inStock !== undefined ? data.inStock : true,
-            imagen: data.imagen || '',  // <- así traes la URL de la imagen
+            imagen: data.imagen || '',
           };
         });
         setProducts(fetchedProducts);
@@ -83,5 +79,30 @@ export const useProducts = (): ProductHook => {
     }
   };
 
-  return { products, loading, error, deleteProduct, updateProductStock, addProduct, updateProduct, };
+  // 👇 Nueva función para editar productos
+  const updateProduct = async (id: string, updatedData: Partial<Product>) => {
+    try {
+      const productRef = doc(db, "products", id);
+      await updateDoc(productRef, updatedData);
+
+      // Actualiza el estado local
+      setProducts(prev =>
+        prev.map(product =>
+          product.id === id ? { ...product, ...updatedData } : product
+        )
+      );
+    } catch (error) {
+      console.error("Error al actualizar el producto:", error);
+    }
+  };
+
+  return {
+    products,
+    loading,
+    error,
+    deleteProduct,
+    updateProductStock,
+    addProduct,
+    updateProduct,
+  };
 };

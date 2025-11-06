@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from './components/ProductCard';
 import CartDisplay from './components/CartDisplay';
 import { useProducts } from './hooks/useProducts';
@@ -7,14 +7,12 @@ import './index.css';
 
 const App: React.FC = () => {
   const { products, loading, error } = useProducts();
-  const [canInstall, setCanInstall] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e);
-      setCanInstall(true);
+      
       console.log('✅ PWA puede instalarse!');
     };
 
@@ -30,17 +28,7 @@ const App: React.FC = () => {
     };
   }, []);
 
-  const installPWA = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setCanInstall(false);
-        console.log('Usuario aceptó instalar la PWA');
-      }
-    }
-  };
-
+  
   return (
     <div>
       <header style={{ 

@@ -3,12 +3,13 @@ import { useAuth } from '../hooks/useAuth';
 import { useProducts } from '../hooks/useProducts';
 import { useNavigate } from "react-router-dom";
 import type { Product } from '../types';
-import VentasDelDia from "../components/VentasDelDia";
+
 
 const AdminPage: React.FC = () => {
   const { user, login, loginWithGoogle, logout, loading: authLoading } = useAuth();
   const { products, loading: productsLoading, error, deleteProduct, updateProductStock, addProduct, updateProduct } = useProducts(); 
   const navigate = useNavigate();
+  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
