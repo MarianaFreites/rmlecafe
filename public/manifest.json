@@ -1,0 +1,19 @@
+{
+  "name": "RM Le'Cafe",
+  "short_name": "RM Le'Cafe", 
+  "description": "Veni a disfrutar de toda nuestra variedad de sabores",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#a87662ff",
+  "theme_color": "#cc0000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/public/LOGO_INSTAGRAM.JPG",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["food", "shopping", "entertainment"]
+}

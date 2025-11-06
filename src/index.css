@@ -1,0 +1,26 @@
+:root {
+  --color-primary: #afa198;
+  --color-background: #ffffff;
+  --color-button-normal: #77583a;
+  --color-button-hover: #000000;
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: sans-serif;
+}
+
+/* Estilo responsivo básico para las cards de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Mínimo 400px de ancho */
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  /* En móviles, queremos una sola columna más ancha */
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
