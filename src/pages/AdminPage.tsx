@@ -33,7 +33,7 @@ const AdminPage: React.FC = () => {
   const [editLoading, setEditLoading] = useState(false);
   const [editError, setEditError] = useState<string | null>(null);
 
-  const ADMIN_EMAILS = ['marianafreitessantana@iresm.edu.ar','renataregaldo@iresm.edu.ar' ];
+  const ADMIN_EMAILS = ['marianafreitessantana@iresm.edu.ar','renataregaldo@iresm.edu.ar','lucianolugani@iresm.edu.ar' ];
 
   if (authLoading) {
     return <p style={{ textAlign: 'center', padding: '50px' }}>Cargando...</p>;
